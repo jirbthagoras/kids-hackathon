@@ -6,6 +6,7 @@ import Login from './Pages/Login';
 import Courses from './Pages/Course';
 import Profile from './Pages/Profile';
 import Footer from './Components/Footer';
+import CourseDetail from "./Components/CourseDetail.jsx";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/courses" element={<Courses />} />
+                        <Route path="/courses/:id" element={<CourseDetail />} />
                         <Route path="/profile" element={<Profile />} />
                     </Routes>
                 </div>
