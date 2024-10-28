@@ -3,7 +3,7 @@ import react from '../assets/react.svg';
 import { Link } from "react-router-dom";
 
 const Profile = () => {
-    // Load initial data from local storage or set default values
+    // Code for loading and saving user data
     const getInitialUser = () => {
         const savedUser = localStorage.getItem('user');
         return savedUser ? JSON.parse(savedUser) : {
@@ -18,13 +18,11 @@ const Profile = () => {
     const [user, setUser] = useState(getInitialUser);
     const [isEditing, setIsEditing] = useState(false);
 
-    // Save updated profile data to local storage
     const handleSave = () => {
         localStorage.setItem('user', JSON.stringify(user));
         setIsEditing(false);
     };
 
-    // Handle input change for the form
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setUser((prevUser) => ({
@@ -34,28 +32,27 @@ const Profile = () => {
     };
 
     useEffect(() => {
-        // Load user data from local storage on component mount
         const savedUser = getInitialUser();
         setUser(savedUser);
     }, []);
 
     return (
-        <section className="container mx-auto max-w-2xl py-10">
-            <div className="bg-white p-8 rounded-lg shadow-md text-center">
+        <section className="container mx-auto max-w-2xl py-10 px-4">
+            <div className="bg-white p-6 md:p-8 rounded-lg shadow-md text-center">
                 <img
                     src={`${user.profilePicture}`}
                     alt="Profile"
-                    className="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-teal-600"
+                    className="w-24 h-24 md:w-32 md:h-32 rounded-full mx-auto mb-4 border-4 border-teal-600"
                 />
-                <h2 className="text-3xl font-bold text-teal-600 mb-2">{user.name}</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-teal-600 mb-2">{user.name}</h2>
                 <p className="text-teal-700">{user.email}</p>
                 <p className="mt-4 text-gray-700">{user.bio}</p>
 
                 <div className="mt-8">
-                    <h3 className="text-xl font-semibold text-teal-600 mb-4">Enrolled Courses</h3>
-                    <ul className="text-teal-800 space-y-2">
+                    <h3 className="text-lg md:text-xl font-semibold text-teal-600 mb-4">Enrolled Courses</h3>
+                    <ul className="text-teal-800">
                         {user.enrolledCourses.map((course, index) => (
-                            <Link key={index} to="/courses" className="bg-teal-900 text-white px-6 py-2 ml-4 rounded hover:bg-teal-700">
+                            <Link key={index} to="/courses" className="bg-teal-900 text-white m-1 px-6 py-2 rounded hover:bg-teal-700">
                                 {course}
                             </Link>
                         ))}
@@ -63,10 +60,7 @@ const Profile = () => {
                 </div>
 
                 <div className="mt-8 space-x-4">
-                    <button
-                        onClick={() => setIsEditing(true)}
-                        className="bg-teal-600 text-white px-6 py-2 rounded hover:bg-teal-700"
-                    >
+                    <button onClick={() => setIsEditing(true)} className="bg-teal-600 text-white px-6 py-2 rounded hover:bg-teal-700">
                         Edit Profile
                     </button>
                     <button className="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700">
@@ -77,9 +71,9 @@ const Profile = () => {
 
             {/* Edit Profile Overlay */}
             {isEditing && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10">
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10 p-4">
                     <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
-                        <h3 className="text-2xl font-bold text-teal-600 mb-4">Edit Profile</h3>
+                        <h3 className="text-xl md:text-2xl font-bold text-teal-600 mb-4">Edit Profile</h3>
                         <label className="block mb-2">
                             <span className="text-teal-800 font-semibold">Name</span>
                             <input
